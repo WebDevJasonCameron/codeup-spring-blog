@@ -37,4 +37,10 @@ public class MathController {
         return n1 + " / " + n2 + " = " + (n1 / n2);
     }
 
+
+
+    public int getRandom(int min, int max){
+        return (int)(Math.random() * max) + min;
+    }
+
 }
