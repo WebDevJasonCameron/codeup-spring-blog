@@ -17,8 +17,17 @@
         <li><a href="/roll-dice/6">Choose 6...</a></li>
     </ul>
 
-    <div th:if="${dice}">
-    <h4 th:text="${roll}"></h4>
+    <div th:if="${diceGames}">
+        <p>You played a game</p>
+        <p>Your number was <span th:text="${userNum}"></span> </p>
+        <ul>
+            <li th:each="diceGame : ${diceGames}">
+                <p> Computer's throw was
+                    <span th:text="${diceGame.getThrowNum()}"></span>.
+                    <span th:text="${diceGame.getGameOutcome()}"></span>
+                </p>
+            </li>
+        </ul>
     </div>
 </body>
 </html>
