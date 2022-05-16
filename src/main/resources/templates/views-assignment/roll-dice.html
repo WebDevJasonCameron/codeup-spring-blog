@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Roll Dice</title>
-    <link rel="shortcut icon" href="../../static/img/MoonPatch_v001.svg" type="image/x-icon">
-</head>
+<head th:replace="/partials/partials.html :: head ('Dice Game')"></head>
+
 <body>
+    <!--NAV-->
+    <nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+    <!--HEADER-->
+    <section th:replace="/partials/partials.html :: header-section ('Dice Game')"></section>
 
     <h1>Guess a number</h1>
     <ul>

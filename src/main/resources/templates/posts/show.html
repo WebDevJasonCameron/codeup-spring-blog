@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Showing Posts</title>
-</head>
+<head th:replace="/partials/partials.html :: head ('Blog')"></head>
+
 <body>
+    <!--NAV-->
+    <nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+    <!--HEADER-->
+    <section th:replace="/partials/partials.html :: header-section ('Blog')"></section>
+
 
 <h1>Show Post Page</h1>
 
@@ -16,10 +20,10 @@
 </div>
 <div th:if="${posts}">
     <ul>
-        <li th:each="post : ${posts}">
-            <p> Title <span th:text="${post.title}"></span></p>
+        <li th:each="p: ${posts}">
+            <p> Title <span th:text="${p.title}"></span></p>
             <p>Body: <br>
-                <span th:text="${post.body}"></span>
+                <span th:text="${p.body}"></span>
             </p>
         </li>
     </ul>
