@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Post Index</title>
-</head>
+<head th:replace="/partials/partials.html :: head ('Blog Index')"></head>
+
 <body>
 
-    <h1>Post Index Page</h1>
+    <!--NAV-->
+    <nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+    <!--HEADER-->
+    <section th:replace="/partials/partials.html :: header-section ('Select Blog')"></section>
 
     <ul>
         <li>
             <a href="/posts/single">Click here to see most recent post</a>
         </li>
         <li>
-            <a href="/post/all">Click here to see all posts</a>
+            <a href="/posts/all">Click here to see all posts</a>
         </li>
     </ul>
 
+
+
+    <!--SCRIPTS-->
+    <section th:replace="/partials/partials.html :: script-section"></section>
 
 </body>
 </html>

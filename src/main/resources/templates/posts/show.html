@@ -7,28 +7,31 @@
     <nav th:replace="/partials/partials.html :: nav-component"></nav>
 
     <!--HEADER-->
-    <section th:replace="/partials/partials.html :: header-section ('Blog')"></section>
+    <section th:replace="/partials/partials.html :: header-section ('Show Blog(s)')"></section>
 
 
-<h1>Show Post Page</h1>
+    <div th:if="${post}">
+        <p>We have a post: Title <span th:text="${post.title}"></span></p>
+        <p>Body: <br>
+            <span th:text="${post.body}"></span>
+        </p>
+    </div>
+    <div th:if="${posts}">
+        <ul>
+            <li th:each="postIt: ${posts}">
+                <p> Title <span th:text="${postIt.title}"></span></p>
+                <p>Body: <br>
+                    <span th:text="${postIt.body}"></span>
+                </p>
+            </li>
+        </ul>
 
-<div th:if="${post}">
-    <p>We have a post: Title <span th:text="${post.title}"></span></p>
-    <p>Body: <br>
-        <span th:text="${post.body}"></span>
-    </p>
-</div>
-<div th:if="${posts}">
-    <ul>
-        <li th:each="p: ${posts}">
-            <p> Title <span th:text="${p.title}"></span></p>
-            <p>Body: <br>
-                <span th:text="${p.body}"></span>
-            </p>
-        </li>
-    </ul>
+    </div>
 
-</div>
+
+    <!--SCRIPTS-->
+    <section th:replace="/partials/partials.html :: script-section"></section>
+
 
 </body>
 </html>
