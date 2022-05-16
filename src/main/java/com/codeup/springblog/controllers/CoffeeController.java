@@ -1,6 +1,7 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Coffee;
+import com.codeup.springblog.repositories.CoffeeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +13,30 @@ import java.util.List;
 @RequestMapping("/coffee")
 public class CoffeeController {
 
+    // ATT
+    private final CoffeeRepository coffeeDao;
+
+    // CON
+    public CoffeeController(CoffeeRepository coffeeDao) {
+        this.coffeeDao = coffeeDao;
+    }
+
+    // MAP
+//    @GetMapping
+//    public String coffeeInfo(){
+//        return "coffees/coffee";
+//    }
+
     @GetMapping
-    public String coffeeInfo(){
-        return "views-lecture/coffee";
+    public String allCoffees(Model model){
+        model.addAttribute("coffees",  coffeeDao.findAll());
+        return "coffees/index";
     }
 
     @PostMapping
     public String newsLetterSignup(@RequestParam(name="email") String email, Model model){
         model.addAttribute("email", email);
-        return "views-lecture/coffee";
+        return "coffees/coffee";
     }
 
     @GetMapping("/{roast}")
@@ -64,8 +80,21 @@ public class CoffeeController {
         selections.add(selection2);
         model.addAttribute("roast", roast);
         model.addAttribute("selections", selections);
-        return "views-lecture/coffee";
+        return "coffees/coffee";
+    }
 
+    @GetMapping("/new")
+    public String addCoffeeForm(){
+        return "coffees/create";
+    }
+
+    @PostMapping("/new")
+    public String addCoffee(@RequestParam(name="brand") String brand,
+                            @RequestParam(name="roast") String roast,
+                            @RequestParam(name="origin") String origin){
+    Coffee coffee = new Coffee(roast, origin, brand);
+        coffeeDao.save(coffee);
+        return "redirect:/coffee";
     }
 
 }  //<--END

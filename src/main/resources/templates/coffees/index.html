@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/partials/partials.html :: head ('Coffee Index')"></head>
+<body>
+
+<!--NAV-->
+<nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+<!--HEADER-->
+<section th:replace="/partials/partials.html :: header-section ('Coffee Home')"></section>
+
+<!--MAIN-->
+<div th:if="${coffees}">
+    <ul>
+        <li th:each="coffee : ${coffees}">
+            brand: <span th:text="${coffee.brand}"></span><br>
+            roast: <span th:text="${coffee.roast}"></span><br>
+            origin: <span th:text="${coffee.origin}"></span><br>
+        </li>
+    </ul>
+</div>
+
+
+<!--SCRIPTS-->
+<section th:replace="/partials/partials.html :: script-section"></section>
+
+</body>
+</html>

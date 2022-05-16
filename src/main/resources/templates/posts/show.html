@@ -3,28 +3,33 @@
 <head th:replace="/partials/partials.html :: head ('Blog')"></head>
 
 <body>
-    <!--NAV-->
-    <nav th:replace="/partials/partials.html :: nav-component"></nav>
 
-    <!--HEADER-->
-    <section th:replace="/partials/partials.html :: header-section ('Show Blog(s)')"></section>
+    <div class="container">
+
+        <!--NAV-->
+        <nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+        <!--HEADER-->
+        <section th:replace="/partials/partials.html :: header-section ('Read Blog')"></section>
 
 
-    <div th:if="${post}">
-        <p>We have a post: Title <span th:text="${post.title}"></span></p>
-        <p>Body: <br>
-            <span th:text="${post.body}"></span>
-        </p>
-    </div>
-    <div th:if="${posts}">
-        <ul>
-            <li th:each="postIt: ${posts}">
-                <p> Title <span th:text="${postIt.title}"></span></p>
-                <p>Body: <br>
-                    <span th:text="${postIt.body}"></span>
-                </p>
-            </li>
-        </ul>
+        <!--MAIN-->
+        <div th:if="${userChoice == 'single'}">
+            <p>Title:<br> <span th:text="${post.title}"></span></p>
+            <p>Body: <br>
+                <span th:text="${post.body}"></span>
+            </p>
+        </div>
+        <div th:if="${userChoice == 'all'}">
+            <ul>
+                <li th:each="postIt: ${posts}">
+                    <p>Title:<br> <span th:text="${postIt.title}"></span></p>
+                    <p>Body: <br>
+                        <span th:text="${postIt.body}"></span>
+                    </p>
+                </li>
+            </ul>
+        </div>
 
     </div>
 

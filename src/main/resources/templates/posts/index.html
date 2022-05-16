@@ -5,22 +5,24 @@
 
 <body>
 
-    <!--NAV-->
-    <nav th:replace="/partials/partials.html :: nav-component"></nav>
+    <div class="container">
 
-    <!--HEADER-->
-    <section th:replace="/partials/partials.html :: header-section ('Select Blog')"></section>
+        <!--NAV-->
+        <nav th:replace="/partials/partials.html :: nav-component"></nav>
 
-    <ul>
-        <li>
-            <a href="/posts/single">Click here to see most recent post</a>
-        </li>
-        <li>
-            <a href="/posts/all">Click here to see all posts</a>
-        </li>
-    </ul>
+        <!--HEADER-->
+        <section th:replace="/partials/partials.html :: header-section ('Select Blog')"></section>
 
+        <ul>
+            <li>
+                <a href="/posts/single">Click here to see most recent post</a>
+            </li>
+            <li>
+                <a href="/posts/all">Click here to see all posts</a>
+            </li>
+        </ul>
 
+    </div>
 
     <!--SCRIPTS-->
     <section th:replace="/partials/partials.html :: script-section"></section>

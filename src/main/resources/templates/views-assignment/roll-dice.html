@@ -3,33 +3,35 @@
 <head th:replace="/partials/partials.html :: head ('Dice Game')"></head>
 
 <body>
-    <!--NAV-->
-    <nav th:replace="/partials/partials.html :: nav-component"></nav>
+    <div class="container">
+        <!--NAV-->
+        <nav th:replace="/partials/partials.html :: nav-component"></nav>
 
-    <!--HEADER-->
-    <section th:replace="/partials/partials.html :: header-section ('Dice Game')"></section>
+        <!--HEADER-->
+        <section th:replace="/partials/partials.html :: header-section ('Dice Game')"></section>
 
-    <h1>Guess a number</h1>
-    <ul>
-        <li><a href="/roll-dice/1">Choose 1...</a></li>
-        <li><a href="/roll-dice/2">Choose 2...</a></li>
-        <li><a href="/roll-dice/3">Choose 3...</a></li>
-        <li><a href="/roll-dice/4">Choose 4...</a></li>
-        <li><a href="/roll-dice/5">Choose 5...</a></li>
-        <li><a href="/roll-dice/6">Choose 6...</a></li>
-    </ul>
-
-    <div th:if="${diceGames}">
-        <p>You played a game</p>
-        <p>Your number was <span th:text="${userNum}"></span> </p>
+        <h1>Guess a number</h1>
         <ul>
-            <li th:each="diceGame : ${diceGames}">
-                <p> Computer's throw was
-                    <span th:text="${diceGame.getThrowNum()}"></span>.
-                    <span th:text="${diceGame.getGameOutcome()}"></span>
-                </p>
-            </li>
+            <li><a href="/roll-dice/1">Choose 1...</a></li>
+            <li><a href="/roll-dice/2">Choose 2...</a></li>
+            <li><a href="/roll-dice/3">Choose 3...</a></li>
+            <li><a href="/roll-dice/4">Choose 4...</a></li>
+            <li><a href="/roll-dice/5">Choose 5...</a></li>
+            <li><a href="/roll-dice/6">Choose 6...</a></li>
         </ul>
+
+        <div th:if="${diceGames}">
+            <p>You played a game</p>
+            <p>Your number was <span th:text="${userNum}"></span> </p>
+            <ul>
+                <li th:each="diceGame : ${diceGames}">
+                    <p> Computer's throw was
+                        <span th:text="${diceGame.getThrowNum()}"></span>.
+                        <span th:text="${diceGame.getGameOutcome()}"></span>
+                    </p>
+                </li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
