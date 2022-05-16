@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Showing Posts</title>
+</head>
+<body>
+
+<h1>Show Post Page</h1>
+
+<div th:if="${post}">
+    <p>We have a post: Title <span th:text="${post.title}"></span></p>
+    <p>Body: <br>
+        <span th:text="${post.body}"></span>
+    </p>
+</div>
+<div th:if="${posts}">
+    <ul>
+        <li th:each="post : ${posts}">
+            <p> Title <span th:text="${post.title}"></span></p>
+            <p>Body: <br>
+                <span th:text="${post.body}"></span>
+            </p>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
