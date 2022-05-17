@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/partials/partials.html :: head ('Partials Example')"></head>
+<body>
+    <div class="container">
+        <!--NAV-->
+        <nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+        <!--HEADER-->
+        <section th:replace="/partials/partials.html :: header-section ('partials Test')"></section>
+
+        <!--MAIN-->
+
+
+        <!--SCRIPTS-->
+        <section th:replace="/partials/partials.html :: script-section"></section>
+    </div>
+</body>
+</html>

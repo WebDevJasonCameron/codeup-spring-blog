@@ -29,7 +29,7 @@ public class CoffeeController {
 
     @GetMapping
     public String allCoffees(Model model){
-        model.addAttribute("coffees",  coffeeDao.findAll());
+        model.addAttribute("coffees",  coffeeDao.findAll());    // Gets data from DB
         return "coffees/index";
     }
 

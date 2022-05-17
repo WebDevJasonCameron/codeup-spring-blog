@@ -1,13 +1,18 @@
 package com.codeup.springblog.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table(name="posts")
 public class Post {
 
     // ATT
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(nullable = false, length = 155)
     private String title;
+    @Column(nullable = false, length = 10_000)
     private String body;
 
     // CON
@@ -27,6 +32,9 @@ public class Post {
     }
     public String getBody() {
         return body;
+    }
+    public long getId() {
+        return id;
     }
 
     // SET
