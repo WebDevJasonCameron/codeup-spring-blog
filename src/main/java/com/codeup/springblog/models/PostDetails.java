@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "postDetails")
 public class PostDetails {
 
+    // ATT
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,4 +19,43 @@ public class PostDetails {
     @OneToOne
     private Post postId;
 
-}
+    // CON
+    public PostDetails() {
+    }
+
+    // GET
+    public long getId() {
+        return id;
+    }
+    public boolean isAwesome() {
+        return isAwesome;
+    }
+    public String getHistoryOfPost() {
+        return historyOfPost;
+    }
+    public String getTopicDescription() {
+        return topicDescription;
+    }
+    public Post getPostId() {
+        return postId;
+    }
+
+
+    // SET
+    public void setAwesome(boolean awesome) {
+        isAwesome = awesome;
+    }
+    public void setHistoryOfPost(String historyOfPost) {
+        this.historyOfPost = historyOfPost;
+    }
+    public void setTopicDescription(String topicDescription) {
+        this.topicDescription = topicDescription;
+    }
+    public void setPostId(Post postId) {
+        this.postId = postId;
+    }
+
+
+
+
+}  //<--END
