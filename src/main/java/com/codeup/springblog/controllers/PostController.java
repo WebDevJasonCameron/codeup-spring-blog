@@ -84,13 +84,13 @@ public class PostController {
         String finalBody;
         Long id = Long.parseLong(originalId);
 
-        if (editedTitle != null){
+        if (editedTitle != ""){
             finalTitle = editedTitle;
         } else {
             finalTitle = originalTitle;
         }
 
-        if (editedBody != null){
+        if (editedBody != "null"){
             finalBody = editedBody;
         } else {
             finalBody = originalBody;
@@ -100,7 +100,9 @@ public class PostController {
         System.out.println("title: "+finalTitle);
         System.out.println("id: "+ id);
 
-        postDao.editPostById(finalTitle, finalBody, id);            // <-- Breaks here
+        Post finalPost = new Post(finalTitle, finalBody);
+
+        postDao.save(finalPost);
 
         return "redirect:/posts";
     }

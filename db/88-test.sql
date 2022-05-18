@@ -9,3 +9,7 @@ SHOW TABLES;
 SELECT * FROM user;
 
 CREATE DATABASE IF NOT EXISTS spring_blog_db;
+
+DROP TABLE IF EXISTS pets;
+DROP TABLE IF EXISTS pet_details;
+

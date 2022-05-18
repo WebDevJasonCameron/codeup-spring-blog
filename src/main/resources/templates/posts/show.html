@@ -36,8 +36,16 @@
                             <span th:text="${postIt.body}"></span>
                         </div>
                         <div class="card-footer n">
+                            <a th:href="${'#collapse-data-' + postIt.id}" class="btn btn-primary w-100">
+                                Read Details
+                            </a>
                             <button th:data-id="${postIt.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
                             <button th:data-id="${postIt.id}" class="btn btn-danger w-100 delete-bt ">Delete</button>
+                        </div>
+                        <div class="collapse" th:id="${'#collapse-data-' + postIt.id}">
+                            <div class="card card-body">
+                                data
+                            </div>
                         </div>
                     </div>
                     </div>
