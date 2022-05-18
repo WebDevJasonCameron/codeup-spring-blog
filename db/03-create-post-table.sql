@@ -13,6 +13,8 @@ CREATE TABLE posts (
        id              int(10) NOT NULL AUTO_INCREMENT,
        title           varchar(255) NOT NULL UNIQUE,
        body            MEDIUMTEXT NOT NULL,
+       postDetailsId   int(10),
+       FOREIGN KEY (postDetailsId) REFERENCES postDetails(id),
        PRIMARY KEY (id));
 
 -- 3. Seed Table:

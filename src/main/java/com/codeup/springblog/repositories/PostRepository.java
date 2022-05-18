@@ -7,8 +7,4 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Modifying
-    @Query("UPDATE Post p SET p.title = ?1, p.body = ?2 where p.id = ?3")       // <-- How does it know which table?
-    void editPostById(String title, String body, Long id);
-
 }

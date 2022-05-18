@@ -19,6 +19,15 @@
             <div th:if="${userChoice == 'single'}" class="card">
                 <div class="card-header">Title:<br> <span th:text="${post.title}"></span></div>
                 <div class="card-body">Body: <br>
+                    <div class="row">
+                        <div class="col-6">
+                            Body: <br>
+                            <span th:text="${post.body}"></span>
+                        </div>
+                        <div class="col-6">
+                            <p th:text="${post.postDetails.isAwesome}"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer "></div>
                 <button th:data-id="${post.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
@@ -32,8 +41,16 @@
 
                     <div th:each="postIt: ${posts}">
                         <div class="card-header">Title:<br> <span th:text="${postIt.title}"></span></div>
-                        <div class="card-body">Body: <br>
-                            <span th:text="${postIt.body}"></span>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    Body: <br>
+                                    <span th:text="${postIt.body}"></span>
+                                </div>
+                                <div class="col-6">
+
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer n">
                             <button th:data-id="${postIt.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
