@@ -19,10 +19,11 @@
             <div th:if="${userChoice == 'single'}" class="card">
                 <div class="card-header">Title:<br> <span th:text="${post.title}"></span></div>
                 <div class="card-body">Body: <br>
-                    <span th:text="${post.body}"></span>
                 </div>
                 <div class="card-footer "></div>
-                <button th:id="${'del-btn-' + post.id}" class="btn btn-danger w-100 delete-bt ">Delete</button>
+                <button th:data-id="${post.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
+                <button th:data-id="${post.id}"  class="btn btn-danger w-100 delete-bt ">Delete</button>
+
             </div>
 
 
@@ -34,8 +35,8 @@
                         <div class="card-body">Body: <br>
                             <span th:text="${postIt.body}"></span>
                         </div>
-                        <p th:text="${postIt.id}"></p>
                         <div class="card-footer n">
+                            <button th:data-id="${postIt.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
                             <button th:data-id="${postIt.id}" class="btn btn-danger w-100 delete-bt ">Delete</button>
                         </div>
                     </div>

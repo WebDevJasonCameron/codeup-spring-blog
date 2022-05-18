@@ -38,7 +38,6 @@ public class PostController {
             model.addAttribute("posts", posts);
         }
 
-        System.out.println("posts: " + posts);
         model.addAttribute("userChoice", userChoice);
         model.addAttribute("post", post);
         model.addAttribute("posts", posts);
@@ -53,7 +52,6 @@ public class PostController {
     @PostMapping("/create")
     public String addPost(@RequestParam(name="title") String title,
                           @RequestParam(name="body") String body){
-        System.out.println("I ran");
         Post post = new Post(title, body);
 
         postDao.save(post);
@@ -66,6 +64,44 @@ public class PostController {
         postDao.deleteById(postId);
         return "redirect:/posts";
     }
+
+
+    @GetMapping("/edit/{id}")
+    public String editPostPage(@PathVariable String id, Model model){
+        Long postId = Long.parseLong(id);
+        Post post = postDao.getById(postId);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    @PostMapping("/edit")
+    public String updatePost(@RequestParam(name="original-id") String originalId,
+                             @RequestParam(name="original-title") String originalTitle,
+                             @RequestParam(name="original-body") String originalBody,
+                             @RequestParam(name="edited-title") String editedTitle,
+                             @RequestParam(name="edited-body") String editedBody){
+        String finalTitle;
+        String finalBody;
+        Long id = Long.parseLong(originalId);
+
+        if (editedTitle != null){
+            finalTitle = editedTitle;
+        } else {
+            finalTitle = originalTitle;
+        }
+
+        if (editedBody != null){
+            finalBody = editedBody;
+        } else {
+            finalBody = originalBody;
+        }
+
+        postDao.editPostById(finalTitle, finalBody, id);
+
+        return "redirect:/posts";
+    }
+
+
 
 
 //    @GetMapping("{id}")
