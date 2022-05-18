@@ -96,7 +96,11 @@ public class PostController {
             finalBody = originalBody;
         }
 
-        postDao.editPostById(finalTitle, finalBody, id);
+        System.out.println("Body: "+finalBody);
+        System.out.println("title: "+finalTitle);
+        System.out.println("id: "+ id);
+
+        postDao.editPostById(finalTitle, finalBody, id);            // <-- Breaks here
 
         return "redirect:/posts";
     }
