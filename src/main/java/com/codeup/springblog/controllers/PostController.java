@@ -1,7 +1,10 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.PostDetails;
+import com.codeup.springblog.repositories.PostDetailsRepository;
 import com.codeup.springblog.repositories.PostRepository;
+import org.apache.catalina.Store;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +18,12 @@ public class PostController {
 
     // ATT
     private final PostRepository postDao;
+    private final PostDetailsRepository postDetailsDao;
 
     // CON
-    public PostController(PostRepository postDao) {
+    public PostController(PostRepository postDao, PostDetailsRepository postDetailsDao) {
         this.postDao = postDao;
+        this.postDetailsDao = postDetailsDao;
     }
 
     // METHS
@@ -51,10 +56,19 @@ public class PostController {
 
     @PostMapping("/create")
     public String addPost(@RequestParam(name="title") String title,
-                          @RequestParam(name="body") String body){
-        Post post = new Post(title, body);
+                          @RequestParam(name="body") String body,
+                          @RequestParam(name="history-of-post") String historyOfPost,
+                          @RequestParam(name="topic-description") String topicDescription,
+                          @RequestParam(name="is-awesome", defaultValue = "False") Boolean isAwesome ) {
 
+        System.out.println("is Awesome returns:" + isAwesome);
+
+        PostDetails postDetails = new PostDetails(isAwesome, historyOfPost, topicDescription);
+        postDetailsDao.save(postDetails);
+
+        Post post = new Post(title, body, postDetails);
         postDao.save(post);
+
         return "redirect:/posts";
     }
 
@@ -108,30 +122,6 @@ public class PostController {
     }
 
 
-
-
-//    @GetMapping("{id}")
-//    public String postById(@PathVariable long id){
-//        return "here is the post " + id ;
-//    }
-//
-//    @GetMapping("/create")
-//    public String createPost(){
-//        return "you just created a post";
-//    }
-//
-//    @PostMapping("/create")
-//    public String submitPost(){
-//        return "you just created a post";
-//    }
-//
-//    Post post1 = new Post("2022/05/15, It takes Three to Pair Program", "Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?\n" +
-//            "\n");
-//
-//    Post post2 = new Post("2022/05/10, Have You Seen my Programmer?", "Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?\n" +
-//            "\n");
-//
-//    List<Post> allPosts = Arrays.asList(post1, post2);
 
 
 

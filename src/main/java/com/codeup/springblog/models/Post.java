@@ -15,7 +15,7 @@ public class Post {
     @Column(nullable = false, length = 10_000)
     private String body;
     @OneToOne
-    private PostDetails postDetailsId;
+    private PostDetails postDetails;
 
     // CON
     public Post() {
@@ -27,10 +27,10 @@ public class Post {
         this.title = title;
         this.body = body;
     }
-    public Post(String title, String body, PostDetails postDetailsId) {
+    public Post(String title, String body, PostDetails postDetails) {
         this.title = title;
         this.body = body;
-        this.postDetailsId = postDetailsId;
+        this.postDetails = postDetails;
     }
 
     // GET
@@ -43,8 +43,8 @@ public class Post {
     public long getId() {
         return id;
     }
-    public PostDetails getPostDetailsId() {
-        return postDetailsId;
+    public PostDetails getPostDetails() {
+        return postDetails;
     }
 
     // SET
@@ -54,8 +54,8 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
     }
-    public void setPostDetailsId(PostDetails postDetailsId) {
-        this.postDetailsId = postDetailsId;
+    public void setPostDetails(PostDetails postDetails) {
+        this.postDetails = postDetails;
     }
 
 

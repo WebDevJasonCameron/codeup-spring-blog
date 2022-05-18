@@ -3,7 +3,7 @@ package com.codeup.springblog.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "postDetails")
+@Table(name = "post_details")
 public class PostDetails {
 
     // ATT
@@ -17,10 +17,21 @@ public class PostDetails {
     @Column
     private String topicDescription;
     @OneToOne
-    private Post postId;
+    private Post post;
 
     // CON
     public PostDetails() {
+    }
+    public PostDetails(boolean isAwesome, String historyOfPost, String topicDescription) {
+        this.isAwesome = isAwesome;
+        this.historyOfPost = historyOfPost;
+        this.topicDescription = topicDescription;
+    }
+    public PostDetails(boolean isAwesome, String historyOfPost, String topicDescription, Post post) {
+        this.isAwesome = isAwesome;
+        this.historyOfPost = historyOfPost;
+        this.topicDescription = topicDescription;
+        this.post = post;
     }
 
     // GET
@@ -36,8 +47,8 @@ public class PostDetails {
     public String getTopicDescription() {
         return topicDescription;
     }
-    public Post getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
 
@@ -51,8 +62,8 @@ public class PostDetails {
     public void setTopicDescription(String topicDescription) {
         this.topicDescription = topicDescription;
     }
-    public void setPostId(Post postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
 
