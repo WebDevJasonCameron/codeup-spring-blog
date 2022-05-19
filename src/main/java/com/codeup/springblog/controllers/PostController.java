@@ -2,8 +2,12 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.PostDetails;
+import com.codeup.springblog.models.PostImage;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostDetailsRepository;
+import com.codeup.springblog.repositories.PostImagesRepository;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.apache.catalina.Store;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +23,15 @@ public class PostController {
     // ATT
     private final PostRepository postDao;
     private final PostDetailsRepository postDetailsDao;
+    private final PostImagesRepository postImagesDao;
+    private final UserRepository userDao;
 
     // CON
-    public PostController(PostRepository postDao, PostDetailsRepository postDetailsDao) {
+    public PostController(PostRepository postDao, PostDetailsRepository postDetailsDao, PostImagesRepository postImagesDao, UserRepository userDao) {
         this.postDao = postDao;
         this.postDetailsDao = postDetailsDao;
+        this.postImagesDao = postImagesDao;
+        this.userDao = userDao;
     }
 
     // METHS
@@ -34,9 +42,11 @@ public class PostController {
 
     @GetMapping("/{userChoice}")
     public String showSingleOrAllPosts(@PathVariable String userChoice, Model model){
+
         List<Post> posts = postDao.findAll();
         Post post = posts.get(posts.size() -1);
 
+        // Choice Logic
         if(userChoice.equals("single")){
             model.addAttribute("post", post);
         } else if (userChoice.equals("all")){
@@ -59,14 +69,35 @@ public class PostController {
                           @RequestParam(name="body") String body,
                           @RequestParam(name="history-of-post") String historyOfPost,
                           @RequestParam(name="topic-description") String topicDescription,
-                          @RequestParam(name="is-awesome", defaultValue = "False") Boolean isAwesome ) {
+                          @RequestParam(name="is-awesome", defaultValue = "False") Boolean isAwesome,
+                          @RequestParam(name="image-title") String imageTitle,
+                          @RequestParam(name="url") String url ) {
 
-        System.out.println("is Awesome returns:" + isAwesome);
+//        System.out.println("is Awesome returns:" + isAwesome);
 
+        // Add user to all posts (for now)
+        Long id = Long.valueOf(1);
+        User user = userDao.getById(id);
+
+        // Set and save pd first
         PostDetails postDetails = new PostDetails(isAwesome, historyOfPost, topicDescription);
         postDetailsDao.save(postDetails);
 
-        Post post = new Post(title, body, postDetails);
+        // Set and save p with pd
+        Post post = new Post(title, body, postDetails, user);
+        postDao.save(post);
+
+        // Save pi with p
+        PostImage postImage = new PostImage(imageTitle, url, post);
+
+        // Create array
+        List<PostImage> postImages = new ArrayList<>();
+        postImages.add(postImage);
+
+        // Set the pi(s) to created post
+        post.setPostImages(postImages);
+
+        // re-save post (to update with pi(s))
         postDao.save(post);
 
         return "redirect:/posts";
@@ -74,16 +105,20 @@ public class PostController {
 
     @GetMapping("/delete/{id}")
     public String deletePost(@PathVariable String id){
+
         long postId = Long.parseLong(id);
         postDao.deleteById(postId);
+
         return "redirect:/posts";
     }
 
 
     @GetMapping("/edit/{id}")
     public String editPostPage(@PathVariable String id, Model model){
+
         Long postId = Long.parseLong(id);
         Post post = postDao.getById(postId);
+
         model.addAttribute("post", post);
         return "posts/edit";
     }

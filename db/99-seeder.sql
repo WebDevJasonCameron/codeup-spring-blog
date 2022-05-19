@@ -45,7 +45,7 @@ VALUES ('Little Bone', 'Greater Toy Inc', false, 2),
 # ==================  Post Details Seeder
 
 # (1) post_details
-# NONE HERE #private long id;
+# NONE HERE #private long id;       [PK]
 
 # 1. private boolean isAwesome;
 # 2. private String historyOfPost;
@@ -58,22 +58,55 @@ VALUES (TRUE, '2022 05 02', 'Funny'),
 
 
 # (2) post
-# NONE HERE # private long id;
+# NONE HERE # private long id;      [PK]
 
 # 1. private String title;
 # 2. private String body;
-INSERT INTO posts (title, body, post_details_id)
+# 3. post_details_id                [FK]    1-to-1
+# 3. user_id                        [FK]    M-to-1
+INSERT INTO posts (title, body, post_details_id, user_id)
 VALUES ( 'It takes Three to Pair Program',
         'Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?',
+        1,
         1),
        ( 'Have You Seen my Programmer?',
          'Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?',
-        2),
+        2,
+        1),
        ( 'Will You Wright on my Wonder Billboard',
          'Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?',
-        3),
+        3,
+        2),
        ( 'Errors Everywhere',
          'Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet, consectetur, adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?',
-        4)
+        4,
+        3)
          ;
 
+# (3) post_images
+# NONE HERE #private long id;       [PK]
+
+# 1. private String image_title;
+# 2. private String url;
+# 3. private long post_id;
+INSERT INTO post_images (image_title, url, post_id)
+VALUES ('kitten basket', 'https://placekitten.com/408/287', 1),
+       ('ugly', 'https://placekitten.com/96/139', 2),
+       ('nosey', 'https://placekitten.com/200/287', 3),
+       ('white', 'https://placekitten.com/200/138', 4),
+       ('divine', 'https://placekitten.com/96/140', 2),
+       ('eyes', 'https://placekitten.com/200/286', 1);
+
+# (4) users
+# NONE HERE #private long id;       [PK]
+
+# 1. private String username;
+# 2. private String email;
+# 3. private String password;
+# 4. private String bio;
+# 5. private List<Post> posts;      [FK]
+
+INSERT INTO users (username, email, password, bio)
+VALUES ('Smash', 'smash@mail.com', '1234', 'Breaks stuff...'),
+       ('Calvin', 'calvin@mail.com', '1234', 'Loud but lovable...'),
+       ('Mocha', 'mocha@mail.com', '1234', 'Cute and cuddly...');

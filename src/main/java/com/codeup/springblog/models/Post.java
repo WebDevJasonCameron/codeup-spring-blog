@@ -1,6 +1,9 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="posts")
@@ -14,8 +17,16 @@ public class Post {
     private String title;
     @Column(nullable = false, length = 10_000)
     private String body;
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name="post_details_id")
     private PostDetails postDetails;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
+    @JsonBackReference
+    private List<PostImage> postImages;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     // CON
     public Post() {
@@ -32,6 +43,18 @@ public class Post {
         this.body = body;
         this.postDetails = postDetails;
     }
+    public Post(String title, String body, PostDetails postDetails, User user) {
+        this.title = title;
+        this.body = body;
+        this.postDetails = postDetails;
+        this.user = user;
+    }
+    public Post(String title, String body, PostDetails postDetails, List<PostImage> postImages) {
+        this.title = title;
+        this.body = body;
+        this.postDetails = postDetails;
+        this.postImages = postImages;
+    }
 
     // GET
     public String getTitle() {
@@ -46,6 +69,12 @@ public class Post {
     public PostDetails getPostDetails() {
         return postDetails;
     }
+    public List<PostImage> getPostImages() {
+        return postImages;
+    }
+    public User getUser() {
+        return user;
+    }
 
     // SET
     public void setTitle(String title) {
@@ -57,6 +86,21 @@ public class Post {
     public void setPostDetails(PostDetails postDetails) {
         this.postDetails = postDetails;
     }
+    public void setPostImages(List<PostImage> postImages) {
+        this.postImages = postImages;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", postDetails=" + postDetails +
+                ", postImages=" + postImages +
+                '}';
+    }
 }  //<--END

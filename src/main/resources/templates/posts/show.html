@@ -15,53 +15,173 @@
 
         <!--MAIN-->
         <div class="container w-75">
-
+            <!--MOST RECENT-->
             <div th:if="${userChoice == 'single'}" class="card">
                 <div class="card-header">Title:<br> <span th:text="${post.title}"></span></div>
                 <div class="card-body">Body: <br>
                     <div class="row">
-                        <div class="col-6">
+                        <!--body-->
+                        <div class="col-8">
                             Body: <br>
                             <span th:text="${post.body}"></span>
                         </div>
-                        <div class="col-6">
-                            <p th:text="${post.postDetails.isAwesome}"></p>
+                        <!--details-->
+                        <div class="col-4">
+                            <!--user details-->
+                            <div class="mb-3">
+                                <p th:text="${post.user.getUsername()}" class="h3"></p>
+                                <blockquote th:text="${post.user.getBio()}" class="blockquote"></blockquote>
+                                <a th:href="${'mailto:' + post.user.getEmail()}">
+                                    <span th:text="${post.user.getEmail()}"></span>
+                                </a>
+                            </div>
+                            <!--post details-->
+                            <div>
+                                <div class="h4">
+                                    Post Details
+                                </div>
+                                <p>Awesome Rating: <span th:text="${post.postDetails.isAwesome}"></span></p>
+                                <p>History:
+                                    <span th:text="${post.postDetails.historyOfPost}"></span>
+                                </p>
+                                <p>Details:
+                                    <span th:text="${post.postDetails.topicDescription}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--images-->
+                    <div class="row">
+                        <div class="d-flex">
+
+                            <div th:each="img : ${post.postImages}">
+                                <div class="card">
+                                    <!--img title-->
+                                    <div class="card-title">
+                                        <div th:text="${img.getImageTitle()}" class="h5"></div>
+                                    </div>
+                                    <!--img url-->
+                                    <div class="card-body">
+                                        <img th:src="${img.getUrl()}" alt="${img.getImageTitle()}" class="img-thumbnail" style="width: 75%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" data-toggle="modal" data-target="#add-image" th:data-id="${post.id}" class="btn btn-primary">
+                                Add Another Image?
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer "></div>
                 <button th:data-id="${post.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
                 <button th:data-id="${post.id}"  class="btn btn-danger w-100 delete-bt ">Delete</button>
-
             </div>
 
 
+            <!--ALL-->
+            <div th:if="${userChoice == 'all'}" class="card mb-3 mt-4">
 
-            <div th:if="${userChoice == 'all'}" class="card mb-3">
-
-                    <div th:each="postIt: ${posts}">
-                        <div class="card-header">Title:<br> <span th:text="${postIt.title}"></span></div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    Body: <br>
-                                    <span th:text="${postIt.body}"></span>
+                <div th:each="postIt: ${posts}">
+                    <!--title-->
+                    <div class="card-header">
+                        Title:<br>
+                        <span th:text="${postIt.title}"></span>
+                    </div>
+                    <!--body-->
+                    <div class="card-body">
+                        <div class="row">
+                            <!--post body-->
+                            <div class="col-8">
+                                Body: <br>
+                                <span th:text="${postIt.body}"></span>
+                            </div>
+                            <!--details-->
+                            <div class="col-4">
+                                <!--user details-->
+                                <div class="mb-3">
+                                    <p th:text="${postIt.user.getUsername()}" class="h3"></p>
+                                    <blockquote th:text="${postIt.user.getBio()}" class="blockquote"></blockquote>
+                                    <a th:href="${'mailto:' + postIt.user.getEmail()}">
+                                        <span th:text="${postIt.user.getEmail()}"></span>
+                                    </a>
                                 </div>
-                                <div class="col-6">
+                                <div>
+                                    <div class="h4">
+                                        Post Details
+                                    </div>
+                                    <p>Awesome Rank:
+                                        <span th:text="${postIt.postDetails.isAwesome}"></span>
+                                    </p>
+                                    <p>History:
+                                        <span th:text="${postIt.postDetails.historyOfPost}"></span>
+                                    </p>
+                                    <p>Details:
+                                        <span th:text="${postIt.postDetails.topicDescription}"></span>
+                                    </p>
+                                </div>
 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="d-flex">
+                                <!--images-->
+                                <div th:each="img : ${postIt.postImages}">
+                                <div class="card">
+                                    <!--img title-->
+                                    <div class="card-title">
+                                        <div th:text="${img.getImageTitle()}" class="h5"></div>
+                                    </div>
+                                    <!--img url-->
+                                    <div class="card-body">
+                                        <img th:src="${img.getUrl()}" alt="${img.getImageTitle()}" class="img-thumbnail" style="width: 75%">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer n">
-                            <button th:data-id="${postIt.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
-                            <button th:data-id="${postIt.id}" class="btn btn-danger w-100 delete-bt ">Delete</button>
-                        </div>
                     </div>
+                </div>
+                    <div class="card-footer">
+                        <!--buttons-->
+                        <button th:data-id="${postIt.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
+                        <button th:data-id="${postIt.id}"  class="btn btn-danger w-100 delete-bt ">Delete</button>
                     </div>
-
+                </div>
             </div>
         </div>
-    </div>
+
+        <!--MODAL-->
+        <div class="modal fade" id="add-image" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Another Image</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="image-title" class="col-form-label">Image Title:</label>
+                                <input type="text" class="form-control" id="image-title" name="image-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="url" class="col-form-label">URL:</label>
+                                <input type="text" class="form-control" id="url" name="url">
+                            </div>
+                            <input type="hidden" name="post-id" th:value="${post.id}">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary add-img">Add Image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
     <!--SCRIPTS-->
