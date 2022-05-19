@@ -156,7 +156,35 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @PostMapping("add-image")
+    public String addImageToSinglePost(@RequestParam(name="image-title") String imageTitle,
+                                       @RequestParam(name="url") String url,
+                                       @RequestParam(name="post-id") String postId,
+                                       Model model){
 
+        long id = Long.parseLong(postId);
+        System.out.println("id = " + id);
+
+        // Create, save, place in obj var?!
+        PostImage postImage = postImagesDao.save(new PostImage(imageTitle, url));
+
+        // Call post obj and place in obj var... then get its list of img
+        Post post = postDao.getById(id);
+        List<PostImage> postImages = post.getPostImages();
+
+        // Place img in list
+        postImages.add(postImage);
+
+        // place list in post
+        post.setPostImages(postImages);
+
+        // save post with new list of img
+        postDao.save(post);
+
+        model.addAttribute(post);
+
+        return "redirect:/posts/show";
+    }
 
 
 

@@ -20,7 +20,7 @@ $(document).ready(() =>{
 
 $(document).ready(() =>{
     $('.add-img').on('click', function () {
-        document.location.replace('/posts/add-image/');
+        document.location.replace('/posts/add-image');
     });
 });
 

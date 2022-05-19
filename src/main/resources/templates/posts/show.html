@@ -79,6 +79,44 @@
                 <button th:data-id="${post.id}"  class="btn btn-danger w-100 delete-bt ">Delete</button>
             </div>
 
+            <!--SINGLE MODAL-->
+            <div class="modal fade" id="add-image" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Another Image</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <!--image-title-->
+                                <div class="form-group">
+                                    <label for="image-title" class="col-form-label">Image Title:</label>
+                                    <input type="text" class="form-control" id="image-title" name="image-title">
+                                </div>
+                                <!--url-->
+                                <div class="form-group">
+                                    <label for="url" class="col-form-label">URL:</label>
+                                    <input type="text" class="form-control" id="url" name="url">
+                                </div>
+                                <!--post-id-->
+                                <input type="hidden" name="post-id" th:value="${post.id}">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary add-img">
+                                Add Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!--ALL-->
             <div th:if="${userChoice == 'all'}" class="card mb-3 mt-4">
@@ -151,36 +189,6 @@
             </div>
         </div>
 
-        <!--MODAL-->
-        <div class="modal fade" id="add-image" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Another Image</h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="image-title" class="col-form-label">Image Title:</label>
-                                <input type="text" class="form-control" id="image-title" name="image-title">
-                            </div>
-                            <div class="form-group">
-                                <label for="url" class="col-form-label">URL:</label>
-                                <input type="text" class="form-control" id="url" name="url">
-                            </div>
-                            <input type="hidden" name="post-id" th:value="${post.id}">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary add-img">Add Image</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 
