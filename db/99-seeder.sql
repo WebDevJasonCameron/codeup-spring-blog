@@ -137,7 +137,7 @@ VALUES ('Smash', 'smash@mail.com', '1234', 'Breaks stuff...'),
        ('Calvin', 'calvin@mail.com', '1234', 'Loud but lovable...'),
        ('Mocha', 'mocha@mail.com', '1234', 'Cute and cuddly...');
 
-# (5) users
+# (5) tags
 # NONE HERE #private long id;       [PK]                                Many-to-Many
 
 # 1. private String name;

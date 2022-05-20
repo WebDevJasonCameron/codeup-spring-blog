@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/partials/partials.html :: head ('Blog')"></head>
+
+<body>
+
+    <div class="container">
+
+        <!--NAV-->
+        <nav th:replace="/partials/partials.html :: nav-component"></nav>
+
+        <!--HEADER-->
+        <section th:replace="/partials/partials.html :: header-section ('Read Blog')"></section>
+
+
+        <!--MAIN-->
+        <div class="container w-75">
+
+            <!--ALL-->
+            <div class="card mb-3 mt-4">
+
+                <div th:each="postIt: ${posts}">
+                    <!--title-->
+                    <div class="card-header">
+                        Title:<br>
+                        <span th:text="${postIt.title}"></span>
+                    </div>
+                    <!--body-->
+                    <div class="card-body">
+                        <div class="row">
+                            <!--post body-->
+                            <div class="col-8">
+                                Body: <br>
+                                <span th:text="${postIt.body}"></span>
+                            </div>
+                            <!--details-->
+                            <div class="col-4">
+                                <!--user details-->
+                                <div class="mb-3">
+                                    <p th:text="${postIt.user.getUsername()}" class="h3"></p>
+                                    <blockquote th:text="${postIt.user.getBio()}" class="blockquote"></blockquote>
+                                    <a th:href="${'mailto:' + postIt.user.getEmail()}">
+                                        <span th:text="${postIt.user.getEmail()}"></span>
+                                    </a>
+                                </div>
+                                <!--post details-->
+                                <div>
+                                    <div class="h4">
+                                        Post Details
+                                    </div>
+                                    <p>Awesome Rank:
+                                        <span th:text="${postIt.postDetails.isAwesome}"></span>
+                                    </p>
+                                    <p>History:
+                                        <span th:text="${postIt.postDetails.historyOfPost}"></span>
+                                    </p>
+                                    <p>Details:
+                                        <span th:text="${postIt.postDetails.topicDescription}"></span>
+                                    </p>
+                                </div>
+                                <!--post tags-->
+                                <!--post tags-->
+                                <div>
+                                    <div class="h4">
+                                        Tags
+                                    </div>
+                                    <div th:each=" pt : ${postIt.getPostTags()}">
+                                        <span class="text-dark badge badge-pill" th:attrappend="class=${' ' + pt.badgeColor}">
+                                            <span th:text="${pt.name}"></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="d-flex">
+                                <!--images-->
+                                <div th:each="img : ${postIt.postImages}">
+                                <div class="card">
+                                    <!--img title-->
+                                    <div class="card-title">
+                                        <div th:text="${img.getImageTitle()}" class="h5"></div>
+                                    </div>
+                                    <!--img url-->
+                                    <div class="card-body">
+                                        <img th:src="${img.getUrl()}" alt="${img.getImageTitle()}" class="img-thumbnail" style="width: 75%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="card-footer">
+                        <!--buttons-->
+                        <button th:data-id="${postIt.id}" class="btn btn-warning w-100 edit-bt ">Edit</button>
+                        <button th:data-id="${postIt.id}"  class="btn btn-danger w-100 delete-bt ">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!--END CONTAINER-->
+
+
+    <!--SCRIPTS-->
+    <section th:replace="/partials/partials.html :: script-section"></section>
+
+
+</body>
+</html>

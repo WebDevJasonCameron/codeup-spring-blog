@@ -10,14 +10,14 @@ SELECT * FROM user;
 
 CREATE DATABASE IF NOT EXISTS spring_blog_db;
 
-TRUNCATE tags;
+TRUNCATE post_images;
 
-DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS post_images;
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS users;
 
 
-DELETE FROM post_details WHERE id = 15;
+DELETE FROM post_images WHERE id = 12;
 
 
 UPDATE posts SET user_id = 3 WHERE id = 6;

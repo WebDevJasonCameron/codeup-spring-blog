@@ -36,24 +36,25 @@ public class PostController {
         return "posts/index";
     }
 
-    @GetMapping("/{userChoice}")
-    public String showSingleOrAllPosts(@PathVariable String userChoice, Model model){
+    @GetMapping("/single")
+    public String showSinglePost(Model model){
 
         List<Post> posts = postDao.findAll();
         Post post = posts.get(posts.size() -1);
 
-        // Choice Logic
-        if(userChoice.equals("single")){
-            model.addAttribute("post", post);
-        } else if (userChoice.equals("all")){
-            model.addAttribute("posts", posts);
-        }
-
-        model.addAttribute("userChoice", userChoice);
         model.addAttribute("post", post);
-        model.addAttribute("posts", posts);
-        return "posts/show";
+        return "posts/show-single";
     }
+
+    @GetMapping("/all")
+    public String showAllPosts(Model model){
+
+        List<Post> posts = postDao.findAll();
+
+        model.addAttribute("posts", posts);
+        return "posts/show-all";
+    }
+
 
     @GetMapping("/create")
     public String createPostPage(Model model){
@@ -172,21 +173,22 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @PostMapping("add-image")
-    public String addImageToSinglePost(@RequestParam(name="image-title") String imageTitle,
-                                       @RequestParam(name="url") String url,
+
+    @PostMapping("/add-image")
+    public String addImageToSinglePost(@RequestParam(name="url") String url,
+                                       @RequestParam(name="image-title") String imageTitle,
                                        @RequestParam(name="post-id") String postId,
                                        Model model){
 
         long id = Long.parseLong(postId);
-        System.out.println("id = " + id);
-
-        // Create, save, place in obj var?!
-        PostImage postImage = postImagesDao.save(new PostImage(imageTitle, url));
 
         // Call post obj and place in obj var... then get its list of img
         Post post = postDao.getById(id);
+//        System.out.println("post.getId() = " + post.getId());
         List<PostImage> postImages = post.getPostImages();
+
+        // Create, save, place in obj var?!
+        PostImage postImage = new PostImage(imageTitle, url, post);
 
         // Place img in list
         postImages.add(postImage);
@@ -195,11 +197,12 @@ public class PostController {
         post.setPostImages(postImages);
 
         // save post with new list of img
+        postImagesDao.save(postImage);
         postDao.save(post);
 
-        model.addAttribute(post);
+        model.addAttribute("post", post);
 
-        return "redirect:/posts/show";
+        return "redirect:/posts";
     }
 
 

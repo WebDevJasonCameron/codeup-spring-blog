@@ -22,12 +22,10 @@ public class PostImage {
     // CON
     public PostImage() {
     }
-
     public PostImage(String imageTitle, String url) {
         this.imageTitle = imageTitle;
         this.url = url;
     }
-
     public PostImage(String imageTitle, String url, Post post) {
         this.imageTitle = imageTitle;
         this.url = url;
