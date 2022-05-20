@@ -1,5 +1,22 @@
 USE spring_blog_db;
 
+# ==================  Movie Seeder
+
+# (1) pet_details                   [PK]                                   <-- child first, then parent
+# NONE HERE # private long id;
+
+# 1. private String title;
+# 2. private String movie_categories;
+# 3. private String description;
+# 4. private String director;
+# 5. private Date release_date;
+# 6. private String cover_image
+
+
+
+
+
+
 # ==================  Pet Seeder
 
 # (1) pet_details                   [PK]                                   <-- child first, then parent

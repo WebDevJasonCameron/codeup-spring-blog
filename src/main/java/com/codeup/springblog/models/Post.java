@@ -26,7 +26,7 @@ public class Post {
     @JsonBackReference
     private List<PostImage> postImages;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)  //<--Changed this... but this might not work!
     @JoinColumn(name = "user_id")
     private User user;
 

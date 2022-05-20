@@ -10,9 +10,9 @@ SELECT * FROM user;
 
 CREATE DATABASE IF NOT EXISTS spring_blog_db;
 
-TRUNCATE post_images;
+TRUNCATE movies;
 
-DROP TABLE IF EXISTS post_images;
+DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS users;
 

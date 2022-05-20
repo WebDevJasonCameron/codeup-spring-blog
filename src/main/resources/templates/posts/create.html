@@ -64,14 +64,8 @@
                     <div class="h4">
                         Tags
                     </div>
-                    <div>
-                        <div th:each=" t : ${tags}" class="btn-group" role="group">
-                            <input type="checkbox" class="btn-check" th:id="${t.name}" name="tags-id" th:value="${t.id}" autocomplete="off">
-                            <label class="btn btn-outline-secondary"  th:attr="for=${t.name}">
-                                <span th:text="${t.name}"></span>
-                            </label><br>
-                        </div>
-                    </div>
+
+
 
                 </div>
 
