@@ -42,6 +42,32 @@ VALUES ('Little Bone', 'Greater Toy Inc', false, 2),
        ('Toys Arf Us.', 'rope', FALSE, 2),
        ('Not For Tennis', 'green chew ball', FALSE,  3);
 
+# (5) vets
+# NONE HERE # private long id;      [PK0
+
+# 1. private String address;
+# 2. private String name;
+# 3. private boolean phone_number;
+INSERT INTO vets (address, name, phone_number)
+VALUES ('123 Bow Wow Lane', 'Dr. Paws', '5554342323'),
+       ('323 Meow Meadow', 'Dr. Claws', '5553331111'),
+       ('1 Woof Way', 'Dr. Jaws', '5553332222'),
+       ('343 Hoof Highway', 'Dr. Maws', '5552212222');
+
+# (6) vets
+    # NONE HERE # private long id;                                      Many-to-Many
+
+# 1. pet_id;
+# 2. vet_pets_id;
+# 3. private boolean phone_number;
+INSERT INTO vets_vet_pets ( vet_pets_id, vet_id)
+VALUES (1, 1),
+       (2, 1),
+       (2, 2),
+       (2, 3),
+       (4, 3);
+
+
 # ==================  Post Details Seeder
 
 # (1) post_details
@@ -110,3 +136,38 @@ INSERT INTO users (username, email, password, bio)
 VALUES ('Smash', 'smash@mail.com', '1234', 'Breaks stuff...'),
        ('Calvin', 'calvin@mail.com', '1234', 'Loud but lovable...'),
        ('Mocha', 'mocha@mail.com', '1234', 'Cute and cuddly...');
+
+# (5) users
+# NONE HERE #private long id;       [PK]                                Many-to-Many
+
+# 1. private String name;
+# 2. private String badgeColor;
+# 3. private String bgColor;
+# 4. private String btnOutlineColor;
+
+
+INSERT INTO tags (name, badge_color, bg_color, btn_outline_color)
+VALUES ('Comedy', 'badge-success',' bg-success', 'btn-outline-success'),
+       ('Sci-Fi', 'badge-primary', 'bg-primary', 'btn-outline-primary'),
+       ('Drama', 'badge-danger', 'bg-danger', 'btn-outline-danger'),
+       ('Action', 'badge-warning', 'bg-warning', 'btn-outline-warning'),
+       ('Horror', 'badge-primary', 'bg-primary', 'btn-outline-primary'),
+       ('Fantasy', 'badge-secondary', 'bg-secondary', 'btn-outline-secondary'),
+       ('Documentary', 'badge-info', 'bg-info', 'btn-outline-info');
+
+# (6) post_tag
+
+# 1. post_id
+# 2. tag_id
+
+INSERT INTO post_tag (post_id, tag_id)
+VALUES (1, 1),
+       (1, 2),
+       (3, 2),
+       (3, 4),
+       (3, 3),
+       (2, 6),
+       (4, 4),
+       (4, 7),
+       (4, 6),
+       (4, 3);

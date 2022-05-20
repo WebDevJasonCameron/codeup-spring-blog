@@ -1,13 +1,7 @@
 package com.codeup.springblog.controllers;
 
-import com.codeup.springblog.models.Post;
-import com.codeup.springblog.models.PostDetails;
-import com.codeup.springblog.models.PostImage;
-import com.codeup.springblog.models.User;
-import com.codeup.springblog.repositories.PostDetailsRepository;
-import com.codeup.springblog.repositories.PostImagesRepository;
-import com.codeup.springblog.repositories.PostRepository;
-import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.models.*;
+import com.codeup.springblog.repositories.*;
 import org.apache.catalina.Store;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +19,15 @@ public class PostController {
     private final PostDetailsRepository postDetailsDao;
     private final PostImagesRepository postImagesDao;
     private final UserRepository userDao;
+    private final TagRepository tagDao;
 
     // CON
-    public PostController(PostRepository postDao, PostDetailsRepository postDetailsDao, PostImagesRepository postImagesDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, PostDetailsRepository postDetailsDao, PostImagesRepository postImagesDao, UserRepository userDao, TagRepository tagDao) {
         this.postDao = postDao;
         this.postDetailsDao = postDetailsDao;
         this.postImagesDao = postImagesDao;
         this.userDao = userDao;
+        this.tagDao = tagDao;
     }
 
     // METHS
@@ -60,7 +56,12 @@ public class PostController {
     }
 
     @GetMapping("/create")
-    public String createPostPage(){
+    public String createPostPage(Model model){
+
+        List<Tag> tags = tagDao.findAll();
+
+        model.addAttribute("tags", tags);
+
         return "posts/create";
     }
 
@@ -71,9 +72,24 @@ public class PostController {
                           @RequestParam(name="topic-description") String topicDescription,
                           @RequestParam(name="is-awesome", defaultValue = "False") Boolean isAwesome,
                           @RequestParam(name="image-title") String imageTitle,
+                          @RequestParam(name="tags-id") String tagsID,
                           @RequestParam(name="url") String url ) {
 
-//        System.out.println("is Awesome returns:" + isAwesome);
+//        System.out.println("is Awesome returns:" + isAwesome);              // Needs Fixing
+//        System.out.println("tagsID = " + tagsID);                           // Check type of input
+
+        // Break String into a String Array(List)
+        List<String> tagsIdStringList = List.of(tagsID.split(","));
+        System.out.println("tagsIdStringList = " + tagsIdStringList);
+
+        // Create Tags List
+        List<Tag> tags = new ArrayList<>();
+
+        // Include form's tags into Tags List
+        for (int i = 0; i < tagsIdStringList.size(); i++) {
+            Tag tag = tagDao.getById(Long.valueOf(tagsIdStringList.get(i)));
+            tags.add(tag);
+        }
 
         // Add user to all posts (for now)
         Long id = Long.valueOf(1);
@@ -84,7 +100,7 @@ public class PostController {
         postDetailsDao.save(postDetails);
 
         // Set and save p with pd
-        Post post = new Post(title, body, postDetails, user);
+        Post post = new Post(title, body, postDetails, user, tags);
         postDao.save(post);
 
         // Save pi with p

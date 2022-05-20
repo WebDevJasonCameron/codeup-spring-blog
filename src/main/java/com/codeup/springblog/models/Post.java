@@ -17,15 +17,26 @@ public class Post {
     private String title;
     @Column(nullable = false, length = 10_000)
     private String body;
+
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name="post_details_id")
     private PostDetails postDetails;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
     @JsonBackReference
     private List<PostImage> postImages;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "post_tag",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private List<Tag> postTags;
 
 
     // CON
@@ -49,11 +60,26 @@ public class Post {
         this.postDetails = postDetails;
         this.user = user;
     }
+    public Post(String title, String body, PostDetails postDetails, User user, List<Tag> postTags) {
+        this.title = title;
+        this.body = body;
+        this.postDetails = postDetails;
+        this.user = user;
+        this.postTags = postTags;
+    }
     public Post(String title, String body, PostDetails postDetails, List<PostImage> postImages) {
         this.title = title;
         this.body = body;
         this.postDetails = postDetails;
         this.postImages = postImages;
+    }
+    public Post(String title, String body, PostDetails postDetails, List<PostImage> postImages, User user, List<Tag> postTags) {
+        this.title = title;
+        this.body = body;
+        this.postDetails = postDetails;
+        this.postImages = postImages;
+        this.user = user;
+        this.postTags = postTags;
     }
 
     // GET
@@ -75,6 +101,10 @@ public class Post {
     public User getUser() {
         return user;
     }
+    public List<Tag> getPostTags() {
+        return postTags;
+    }
+
 
     // SET
     public void setTitle(String title) {
@@ -92,7 +122,12 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }
+    public void setPostTags(List<Tag> postTags) {
+        this.postTags = postTags;
+    }
 
+
+    // CHECKS
     @Override
     public String toString() {
         return "Post{" +
@@ -101,6 +136,8 @@ public class Post {
                 ", body='" + body + '\'' +
                 ", postDetails=" + postDetails +
                 ", postImages=" + postImages +
+                ", user=" + user +
+                ", postTags=" + postTags +
                 '}';
     }
 }  //<--END

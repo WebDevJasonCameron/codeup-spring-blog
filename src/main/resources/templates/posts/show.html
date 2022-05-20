@@ -48,6 +48,11 @@
                                     <span th:text="${post.postDetails.topicDescription}"></span>
                                 </p>
                             </div>
+                            dvi
+                            <!--post tags-->
+                            <div th:each=" t : ${post.getPostTags()}">
+                                <span th:class="${'badge badge-' + t.badgeColor}"><span th:text="${t.name}">::</span></span>
+                            </div>
                         </div>
                     </div>
                     <!--images-->
@@ -145,6 +150,7 @@
                                         <span th:text="${postIt.user.getEmail()}"></span>
                                     </a>
                                 </div>
+                                <!--post details-->
                                 <div>
                                     <div class="h4">
                                         Post Details
@@ -158,6 +164,18 @@
                                     <p>Details:
                                         <span th:text="${postIt.postDetails.topicDescription}"></span>
                                     </p>
+                                </div>
+                                <!--post tags-->
+                                <!--post tags-->
+                                <div>
+                                    <div class="h4">
+                                        Tags
+                                    </div>
+                                    <div th:each=" pt : ${postIt.getPostTags()}">
+                                        <span class="text-dark badge badge-pill" th:attrappend="class=${' ' + pt.badgeColor}">
+                                            <span th:text="${pt.name}"></span>
+                                        </span>
+                                    </div>
                                 </div>
 
                             </div>

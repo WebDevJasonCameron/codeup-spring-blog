@@ -25,6 +25,9 @@
                     <textarea name="body" class="form-control" id="body" cols="30" rows="10"></textarea>
                 </div>
                 <!--POST DETAILS TABLE-->
+                <div class="h4">
+                    Post Details
+                </div>
                 <!--post history-->
                 <div class="form-group">
                     <label for="history-of-post">Post History</label>
@@ -44,6 +47,9 @@
                 </div>
                 <!--POST IMAGE TABLE-->
                 <!--image title-->
+                <div class="h4">
+                    Add an Image
+                </div>
                 <div class="form-group">
                     <label for="image-title">Image Title</label>
                     <input type="text" class="form-control" name="image-title" id="image-title">
@@ -53,6 +59,23 @@
                     <label for="url">Image Url</label>
                     <input type="text" class="form-control" name="url" id="url">
                 </div>
+                <!--tags-->
+                <div>
+                    <div class="h4">
+                        Tags
+                    </div>
+                    <div>
+                        <div th:each=" t : ${tags}" class="btn-group" role="group">
+                            <input type="checkbox" class="btn-check" th:id="${t.name}" name="tags-id" th:value="${t.id}" autocomplete="off">
+                            <label class="btn btn-outline-secondary"  th:attr="for=${t.name}">
+                                <span th:text="${t.name}"></span>
+                            </label><br>
+                        </div>
+                    </div>
+
+                </div>
+
+
 
 
                 <!--SUBMIT-->
