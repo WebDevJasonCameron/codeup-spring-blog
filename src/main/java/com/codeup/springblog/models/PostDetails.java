@@ -11,7 +11,7 @@ public class PostDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
-    private boolean isAwesome;
+    private boolean awesome;
     @Column
     private String historyOfPost;
     @Column
@@ -20,8 +20,8 @@ public class PostDetails {
     // CON
     public PostDetails() {
     }
-    public PostDetails(boolean isAwesome, String historyOfPost, String topicDescription) {
-        this.isAwesome = isAwesome;
+    public PostDetails(boolean awesome, String historyOfPost, String topicDescription) {
+        this.awesome = awesome;
         this.historyOfPost = historyOfPost;
         this.topicDescription = topicDescription;
     }
@@ -30,8 +30,8 @@ public class PostDetails {
     public long getId() {
         return id;
     }
-    public boolean isAwesome() {
-        return isAwesome;
+    public boolean awesome() {
+        return awesome;
     }
     public String getHistoryOfPost() {
         return historyOfPost;
@@ -42,8 +42,7 @@ public class PostDetails {
 
 
     // SET
-    public void setAwesome(boolean awesome) {
-        isAwesome = awesome;
+    public void setAwesome(boolean awesome) {awesome = awesome;
     }
     public void setHistoryOfPost(String historyOfPost) {
         this.historyOfPost = historyOfPost;

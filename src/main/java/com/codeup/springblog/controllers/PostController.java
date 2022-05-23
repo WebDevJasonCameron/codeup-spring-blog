@@ -2,7 +2,6 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.*;
 import com.codeup.springblog.repositories.*;
-import org.apache.catalina.Store;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -120,6 +119,7 @@ public class PostController {
         return "redirect:/posts";
     }
 
+
     @GetMapping("/delete/{id}")
     public String deletePost(@PathVariable String id){
 
@@ -204,6 +204,7 @@ public class PostController {
 
         return "redirect:/posts";
     }
+
 
 
 

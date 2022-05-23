@@ -14,9 +14,8 @@ public class PostImage {
     private long id;
     private String imageTitle;
     private String url;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "post_id")
-    @JsonBackReference
     private Post post;
 
     // CON

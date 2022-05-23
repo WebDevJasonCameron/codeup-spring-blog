@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User {
 
     // ATT
@@ -42,6 +42,15 @@ public class User {
         this.posts = posts;
     }
 
+    // AUTH
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        posts = copy.posts;
+        username = copy.username;
+        password = copy.password;
+    }
+
 
     // GET
     public long getId() {
@@ -59,8 +68,11 @@ public class User {
     public List<Post> getPosts() {
         return posts;
     }
+    public String getPassword() {
+        return password;
+    }
 
-    // POST
+    // SET
     public void setUsername(String username) {
         this.username = username;
     }
@@ -72,6 +84,9 @@ public class User {
     }
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     // CHECKS
